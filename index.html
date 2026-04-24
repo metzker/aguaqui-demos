@@ -1,0 +1,390 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+.app{font-family:'Nunito',sans-serif;background:#f5f8fc;width:100%;max-width:390px;margin:0 auto;border-radius:16px;overflow:hidden;border:1px solid #dde8f0}
+.screen{display:none;flex-direction:column}
+.screen.active{display:flex}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 18px 12px;background:#fff;border-bottom:1px solid #eef2f6}
+.logo{display:flex;align-items:center;gap:6px}
+.logo-mark{width:26px;height:26px;background:#1da8d9;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.logo-mark svg{width:14px;height:14px;fill:#fff}
+.logo-text{font-size:17px;font-weight:800;letter-spacing:-0.5px}
+.logo-text .a1{color:#1da8d9}.logo-text .gua{color:#e04a1f}.logo-text .aqui{color:#1da8d9}
+.topbar-icons{display:flex;gap:10px;align-items:center}
+.icon-btn{position:relative;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:none;border:none;padding:0}
+.icon-btn svg{width:22px;height:22px;stroke:#555;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.badge-cart{position:absolute;top:1px;right:1px;background:#e04a1f;color:#fff;font-size:9px;font-weight:800;border-radius:50%;width:14px;height:14px;display:flex;align-items:center;justify-content:center}
+.hero{background:#fff;padding:16px 18px 18px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.hero-text{flex:1}
+.hero-title{font-size:19px;font-weight:800;color:#1da8d9;line-height:1.2;text-transform:uppercase;margin-bottom:10px}
+.hero-feat{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+.hero-feat-row{display:flex;align-items:center;gap:6px;font-size:12px;color:#555}
+.hero-feat-row svg{width:13px;height:13px;fill:#1da8d9;flex-shrink:0}
+.hero-note{background:#eef7fb;border-radius:10px;padding:7px 11px;font-size:11px;color:#444}
+.hero-img{width:100px;height:100px;background:#d5eef8;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.hero-img svg{width:64px;height:64px}
+.cats{padding:12px 18px;background:#fff;margin-top:8px}
+.cats-row{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px}
+.cats-row::-webkit-scrollbar{display:none}
+.cat-card{flex-shrink:0;width:96px;border-radius:14px;border:1.5px solid #e8f0f5;padding:10px 8px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;background:#fff}
+.cat-card:hover{border-color:#1da8d9}
+.cat-icon{width:44px;height:44px;display:flex;align-items:center;justify-content:center}
+.cat-label{font-size:11px;font-weight:700;color:#222;text-align:center}
+.new-badge{background:#1da8d9;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px}
+.section{padding:14px 18px 0}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.section-title{font-size:15px;font-weight:800;color:#1a1a2e}
+.see-all{font-size:12px;color:#1da8d9;font-weight:700;cursor:pointer;background:none;border:none;padding:0;font-family:'Nunito',sans-serif}
+.order-card{background:#fff;border-radius:14px;border:1px solid #e8f0f5;padding:13px 15px;margin-bottom:8px}
+.order-dates{display:flex;justify-content:space-between;font-size:11px;color:#888;margin-bottom:5px}
+.order-addr{font-size:12px;font-weight:800;color:#1da8d9;margin-bottom:8px}
+.order-items{display:flex;flex-direction:column;gap:4px;margin-bottom:9px}
+.order-item-row{display:flex;justify-content:space-between;font-size:12px;color:#444}
+.order-item-row .qty{font-weight:700;color:#222}
+.order-footer{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.status-tag{font-size:11px;color:#888}
+.paid-tag{font-size:12px;font-weight:700;color:#16a34a}
+.total-row{display:flex;justify-content:space-between;align-items:center;border-top:1px solid #f0f0f0;padding-top:8px;margin-bottom:11px}
+.total-label{font-size:14px;font-weight:800;color:#222}
+.total-amount{font-size:20px;font-weight:800;color:#1da8d9}
+.repeat-btn{width:100%;background:#1da8d9;color:#fff;border:none;border-radius:11px;padding:12px;font-size:14px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif}
+.spacer{height:80px}
+.bottom-nav{display:flex;padding:8px 0 12px;background:#fff;border-top:1px solid #eef2f6}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;background:none;border:none;padding:4px 0;position:relative}
+.nav-item svg{width:20px;height:20px;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.nav-label{font-size:10px;font-weight:700;font-family:'Nunito',sans-serif}
+.nav-item.active .nav-label,.nav-item.active svg{color:#1da8d9;stroke:#1da8d9}
+.nav-item:not(.active) .nav-label,.nav-item:not(.active) svg{color:#aaa;stroke:#aaa}
+.nav-bell-dot{position:absolute;top:2px;right:calc(50% - 14px);width:8px;height:8px;background:#e04a1f;border-radius:50%;border:2px solid #fff;transition:opacity 0.3s}
+.notif-topbar{display:flex;align-items:center;padding:12px 18px 12px;background:#fff;border-bottom:1px solid #eef2f6;gap:10px}
+.back-btn{width:32px;height:32px;background:#f0f5f9;border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.back-btn svg{width:16px;height:16px;stroke:#333;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.notif-screen-title{font-size:16px;font-weight:800;color:#1a1a2e;flex:1}
+.notif-topbar-actions{display:flex;gap:6px;align-items:center}
+.action-icon-btn{width:32px;height:32px;background:#f0f5f9;border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;position:relative}
+.action-icon-btn svg{width:16px;height:16px;stroke:#444;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.scroll-top-icon-btn{width:32px;height:32px;background:#eef7fb;border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;position:relative}
+.scroll-top-icon-btn svg{width:16px;height:16px;stroke:#1591c0;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.tooltip{position:absolute;top:38px;right:0;background:#1a1a2e;color:#fff;font-size:11px;font-weight:700;font-family:'Nunito',sans-serif;padding:5px 10px;border-radius:8px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity 0.2s;z-index:10}
+.action-icon-btn:hover .tooltip,.scroll-top-icon-btn:hover .tooltip{opacity:1}
+.unread-banner{display:flex;align-items:center;justify-content:space-between;padding:8px 18px;background:#eef7fb;border-bottom:1px solid #d5eef8}
+.unread-count{font-size:12px;color:#0c6a90;font-weight:700}
+.mark-all-btn{font-size:12px;color:#1da8d9;font-weight:700;background:none;border:none;cursor:pointer;font-family:'Nunito',sans-serif;padding:0}
+.notif-list{overflow-y:auto;max-height:500px;padding:8px 14px 80px}
+.notif-group-label{font-size:10px;font-weight:800;color:#aaa;text-transform:uppercase;letter-spacing:0.7px;margin:10px 4px 6px}
+.notif-wrapper{overflow:hidden;border-radius:14px;margin-bottom:8px;position:relative}
+.swipe-bg{position:absolute;inset:0;background:#fde8e0;display:flex;align-items:center;justify-content:flex-end;padding-right:18px;border-radius:14px}
+.swipe-bg svg{width:18px;height:18px;stroke:#e04a1f;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.notif-item{display:flex;gap:10px;align-items:flex-start;background:#fff;border-radius:14px;padding:11px 13px;border:1px solid #eef2f6;position:relative;cursor:pointer;transition:transform 0.25s ease,opacity 0.3s;touch-action:pan-y;user-select:none;will-change:transform}
+.notif-item.unread{border-left:3px solid #1da8d9;background:#f0f9fd;border-radius:0 14px 14px 0}
+.notif-item.seen-anim{background:#fff;border-left:3px solid #cce8f0;border-radius:0 14px 14px 0;transition:background 0.6s,border-color 0.6s}
+.notif-icon-wrap{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ni-blue{background:#dff0f9}.ni-green{background:#dcf5e8}.ni-amber{background:#fdf2de}.ni-coral{background:#fde8e0}
+.notif-icon-wrap svg{width:18px;height:18px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ni-blue svg{stroke:#1591c0}.ni-green svg{stroke:#16a34a}.ni-amber svg{stroke:#b45309}.ni-coral svg{stroke:#e04a1f}
+.notif-body{flex:1;min-width:0}
+.notif-title{font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:3px}
+.notif-desc{font-size:11px;color:#666;line-height:1.4}
+.notif-time{font-size:10px;color:#bbb;margin-top:4px;font-weight:600}
+.unread-dot{width:8px;height:8px;background:#1da8d9;border-radius:50%;flex-shrink:0;margin-top:4px}
+.swipe-hint{text-align:center;font-size:11px;color:#bbb;padding:6px 0 0;font-weight:600}
+
+.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 24px 40px;gap:16px}
+.empty-state svg{width:48px;height:48px;stroke:#d0e4ee;fill:none;stroke-width:1.5}
+.empty-state-text{font-size:14px;font-weight:700;color:#bbb;text-align:center}
+.restart-btn{display:flex;align-items:center;gap:8px;background:#1da8d9;color:#fff;border:none;border-radius:14px;padding:14px 28px;font-size:14px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;margin-top:8px;transition:background 0.15s}
+.restart-btn:active{background:#1591c0}
+.restart-btn svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+</style>
+
+<div class="app">
+
+  <!-- HOME SCREEN -->
+  <div class="screen active" id="home-screen">
+    <div class="topbar">
+      <div class="logo">
+        <div class="logo-mark"><svg viewBox="0 0 16 16"><path d="M8 2C8 2 3 7 3 10.5a5 5 0 0010 0C13 7 8 2 8 2z"/></svg></div>
+        <span class="logo-text"><span class="a1">Á</span><span class="gua">GU</span><span class="aqui">AQUI</span></span>
+      </div>
+      <div class="topbar-icons">
+        <button class="icon-btn" title="Cart">
+          <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.99-1.81l1.38-8.59H6"/></svg>
+          <span class="badge-cart">0</span>
+        </button>
+      </div>
+    </div>
+    <div class="hero">
+      <div class="hero-text">
+        <div class="hero-title">Water Delivery<br>Service in Lisbon</div>
+        <div class="hero-feat">
+          <div class="hero-feat-row"><svg viewBox="0 0 16 16"><path d="M8 2C8 2 3 7 3 10.5a5 5 0 0010 0C13 7 8 2 8 2z"/></svg>Delivery in Greater Lisbon Area</div>
+          <div class="hero-feat-row"><svg viewBox="0 0 16 16"><path d="M8 2C8 2 3 7 3 10.5a5 5 0 0010 0C13 7 8 2 8 2z"/></svg>Free delivery, 6 days a week</div>
+        </div>
+        <div class="hero-note">Min. order €15.00 applies</div>
+      </div>
+      <div class="hero-img">
+        <svg viewBox="0 0 80 80" fill="none">
+          <rect x="28" y="8" width="24" height="56" rx="8" fill="#1da8d9" opacity="0.85"/>
+          <rect x="32" y="6" width="16" height="6" rx="3" fill="#1591c0"/>
+          <ellipse cx="40" cy="36" rx="8" ry="12" fill="#d5eef8" opacity="0.5"/>
+          <circle cx="36" cy="30" r="3" fill="#fff" opacity="0.4"/>
+        </svg>
+      </div>
+    </div>
+    <div class="cats">
+      <div class="cats-row">
+        <div class="cat-card">
+          <div class="cat-icon"><svg width="44" height="44" viewBox="0 0 48 48" fill="none"><rect x="8" y="8" width="32" height="32" rx="10" fill="#1da8d9" opacity="0.15"/><text x="24" y="30" text-anchor="middle" font-size="20" fill="#1da8d9">★</text></svg></div>
+          <div class="cat-label">New Products</div><div class="new-badge">NEW</div>
+        </div>
+        <div class="cat-card">
+          <div class="cat-icon"><svg width="44" height="44" viewBox="0 0 48 48" fill="none"><rect x="18" y="8" width="12" height="32" rx="6" fill="#1da8d9" opacity="0.8"/><rect x="16" y="6" width="16" height="5" rx="2.5" fill="#1591c0"/><ellipse cx="24" cy="26" rx="4" ry="8" fill="#d5eef8" opacity="0.6"/></svg></div>
+          <div class="cat-label">Still Water</div>
+        </div>
+        <div class="cat-card">
+          <div class="cat-icon"><svg width="44" height="44" viewBox="0 0 48 48" fill="none"><rect x="18" y="10" width="12" height="30" rx="5" fill="#2dc48e" opacity="0.85"/><rect x="16" y="8" width="16" height="5" rx="2.5" fill="#1a8a60"/><circle cx="22" cy="20" r="2" fill="#fff" opacity="0.5"/><circle cx="26" cy="26" r="1.5" fill="#fff" opacity="0.4"/><circle cx="22" cy="32" r="1.5" fill="#fff" opacity="0.35"/></svg></div>
+          <div class="cat-label">Sparkling Water</div>
+        </div>
+        <div class="cat-card">
+          <div class="cat-icon"><svg width="44" height="44" viewBox="0 0 48 48" fill="none"><rect x="14" y="12" width="20" height="24" rx="5" fill="#f0a060" opacity="0.85"/><rect x="18" y="8" width="12" height="6" rx="3" fill="#d08040"/><line x1="20" y1="20" x2="28" y2="20" stroke="#fff" stroke-width="1.5" opacity="0.5"/><line x1="20" y1="24" x2="28" y2="24" stroke="#fff" stroke-width="1.5" opacity="0.5"/><line x1="20" y1="28" x2="28" y2="28" stroke="#fff" stroke-width="1.5" opacity="0.5"/></svg></div>
+          <div class="cat-label">Groceries</div>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-header">
+        <span class="section-title">Recent orders</span>
+        <button class="see-all">All orders ›</button>
+      </div>
+      <div class="order-card">
+        <div class="order-dates"><span>19/04/2026</span><span>20/04/2026 | 12:00–12:30</span></div>
+        <div class="order-addr">Rua Fernando Pires de Lima 12, code 71839</div>
+        <div class="order-items">
+          <div class="order-item-row"><span>Pedras Salgadas, Glass Bottle, 250 ml</span><span class="qty">x1</span></div>
+          <div class="order-item-row"><span>AguAqui 18.9L Reusable</span><span class="qty">x2</span></div>
+          <div class="order-item-row"><span>AguAqui 18.9L Reusable</span><span class="qty">x1</span></div>
+        </div>
+        <div class="order-footer"><span class="status-tag">Delivered</span><span class="paid-tag">Payment: Paid</span></div>
+        <div class="total-row"><span class="total-label">Total:</span><span class="total-amount">€38.46</span></div>
+        <button class="repeat-btn">Repeat Order</button>
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="bottom-nav">
+      <button class="nav-item active" id="hn-catalog"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span class="nav-label">Catalog</span></button>
+      <button class="nav-item"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span class="nav-label">Favourites</span></button>
+      <button class="nav-item" id="hn-notif" style="position:relative">
+        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        <span class="nav-bell-dot" id="home-nav-dot"></span>
+        <span class="nav-label">Notifications</span>
+      </button>
+      <button class="nav-item"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="nav-label">Profile</span></button>
+    </div>
+  </div>
+
+  <!-- NOTIFICATIONS SCREEN -->
+  <div class="screen" id="notif-screen">
+    <div class="topbar">
+      <div class="logo">
+        <div class="logo-mark"><svg viewBox="0 0 16 16"><path d="M8 2C8 2 3 7 3 10.5a5 5 0 0010 0C13 7 8 2 8 2z"/></svg></div>
+        <span class="logo-text"><span class="a1">Á</span><span class="gua">GU</span><span class="aqui">AQUI</span></span>
+      </div>
+      <div class="topbar-icons">
+        <button class="icon-btn" title="Cart">
+          <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.99-1.81l1.38-8.59H6"/></svg>
+          <span class="badge-cart">0</span>
+        </button>
+      </div>
+    </div>
+    <div class="notif-topbar">
+      <button class="back-btn" id="back-btn"><svg viewBox="0 0 18 18"><polyline points="11 3 5 9 11 15"/></svg></button>
+      <span class="notif-screen-title">Notifications</span>
+      <div class="notif-topbar-actions">
+        <div style="position:relative">
+          <button class="scroll-top-icon-btn" id="scroll-top-btn">
+            <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+            <span class="tooltip">Back to top</span>
+          </button>
+        </div>
+        <div style="position:relative">
+          <button class="action-icon-btn" id="prefs-btn">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+            <span class="tooltip">Preferences</span>
+          </button>
+        </div>
+        <div style="position:relative">
+          <button class="action-icon-btn" id="clear-btn">
+            <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+            <span class="tooltip">Clear all</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div id="unread-banner" class="unread-banner">
+      <span class="unread-count" id="unread-count-text">4 unread notifications</span>
+      <button class="mark-all-btn" id="mark-all-btn">Mark all read</button>
+    </div>
+    <div class="notif-list" id="notif-list">
+      <div class="notif-group-label">Today</div>
+      <div class="notif-wrapper" id="w1"><div class="swipe-bg"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg></div><div class="notif-item unread" id="n1"><div class="notif-icon-wrap ni-green"><svg viewBox="0 0 24 24"><path d="M12 2C12 2 5 9 5 14a7 7 0 0014 0C19 9 12 2 12 2z"/><polyline points="9 14 11 16 15 12"/></svg></div><div class="notif-body"><div class="notif-title">Your order has been delivered!</div><div class="notif-desc">Order €38.46 delivered to Rua Fernando Pires de Lima 12.</div><div class="notif-time">10:32 · just now</div></div><div class="unread-dot"></div></div></div>
+      <div class="notif-wrapper" id="w2"><div class="swipe-bg"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg></div><div class="notif-item unread" id="n2"><div class="notif-icon-wrap ni-blue"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="notif-body"><div class="notif-title">Delivery arriving soon</div><div class="notif-desc">Your order arrives 12:00–12:30 today. Have code 71839 ready.</div><div class="notif-time">09:15 · 1h ago</div></div><div class="unread-dot"></div></div></div>
+      <div class="notif-group-label">This week</div>
+      <div class="notif-wrapper" id="w3"><div class="swipe-bg"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg></div><div class="notif-item" id="n3"><div class="notif-icon-wrap ni-amber"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div><div class="notif-body"><div class="notif-title">Rate your last order</div><div class="notif-desc">You received AguAqui 18.9L bottles on 17/04. Leave a quick rating!</div><div class="notif-time">17/04 · 2 days ago</div></div></div></div>
+      <div class="notif-wrapper" id="w4"><div class="swipe-bg"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg></div><div class="notif-item unread" id="n4"><div class="notif-icon-wrap ni-coral"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><div class="notif-body"><div class="notif-title">New products just landed</div><div class="notif-desc">Pedras Salgadas cans, Luso Fruit Water & Evian 6-pack now in catalog.</div><div class="notif-time">16/04 · 3 days ago</div></div><div class="unread-dot"></div></div></div>
+      <div class="notif-group-label">Earlier</div>
+      <div class="notif-wrapper" id="w5"><div class="swipe-bg"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg></div><div class="notif-item unread" id="n5"><div class="notif-icon-wrap ni-amber"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><div class="notif-body"><div class="notif-title">Enjoying AguAqui? Rate our app</div><div class="notif-desc">Leave a review on the App Store and help us grow in Lisbon!</div><div class="notif-time">10/04 · 9 days ago</div></div><div class="unread-dot"></div></div></div>
+      <div class="notif-wrapper" id="w6"><div class="swipe-bg"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg></div><div class="notif-item" id="n6"><div class="notif-icon-wrap ni-green"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="notif-body"><div class="notif-title">Saturday delivery now available</div><div class="notif-desc">We now deliver 6 days a week across Greater Lisbon!</div><div class="notif-time">05/04 · 14 days ago</div></div></div></div>
+      <div class="swipe-hint" id="swipe-hint">← swipe left on a notification to remove it</div>
+    </div>
+    <div class="bottom-nav">
+      <button class="nav-item" id="nn-catalog"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span class="nav-label">Catalog</span></button>
+      <button class="nav-item"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span class="nav-label">Favourites</span></button>
+      <button class="nav-item active" style="position:relative">
+        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        <span class="nav-bell-dot" id="notif-nav-dot"></span>
+        <span class="nav-label">Notifications</span>
+      </button>
+      <button class="nav-item"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="nav-label">Profile</span></button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const ORIGINAL_HTML = document.getElementById('notif-list').innerHTML;
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+document.getElementById('hn-notif').addEventListener('click',()=>showScreen('notif-screen'));
+document.getElementById('back-btn').addEventListener('click',()=>showScreen('home-screen'));
+document.getElementById('nn-catalog').addEventListener('click',()=>showScreen('home-screen'));
+document.getElementById('hn-catalog').addEventListener('click',()=>showScreen('home-screen'));
+
+function countUnread(){return document.querySelectorAll('#notif-list .notif-item.unread').length;}
+
+function updateBadges(){
+  const n=countUnread();
+  ['home-nav-dot','notif-nav-dot'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.style.opacity=n>0?'1':'0';
+  });
+  const banner=document.getElementById('unread-banner');
+  const txt=document.getElementById('unread-count-text');
+  if(banner)banner.style.display=n>0?'flex':'none';
+  if(txt)txt.textContent=n+(n===1?' unread notification':' unread notifications');
+}
+updateBadges();
+
+function bindNotifClicks(){
+  document.querySelectorAll('#notif-list .notif-item').forEach(item=>{
+    item.addEventListener('click',function(){
+      if(this.classList.contains('unread')){
+        this.classList.remove('unread');
+        this.classList.add('seen-anim');
+        const dot=this.querySelector('.unread-dot');
+        if(dot){dot.style.transition='opacity 0.4s';dot.style.opacity='0';setTimeout(()=>dot.remove(),400);}
+        updateBadges();
+      }
+    });
+  });
+}
+bindNotifClicks();
+
+function bindSwipe(){
+  document.querySelectorAll('#notif-list .notif-wrapper').forEach(wrapper=>{
+    const item=wrapper.querySelector('.notif-item');
+    if(!item)return;
+    let startX=0,startY=0,dx=0,dragging=false,rafId=null;
+    const THRESHOLD=70;
+    function onStart(x,y){startX=x;startY=y;dx=0;dragging=true;item.style.transition='none';}
+    function onMove(x,y){
+      if(!dragging)return;
+      dx=x-startX;const dy=y-startY;
+      if(Math.abs(dy)>Math.abs(dx)+10){dragging=false;item.style.transform='';return;}
+      if(dx>0)dx=0;
+      if(rafId)cancelAnimationFrame(rafId);
+      rafId=requestAnimationFrame(()=>{item.style.transform=`translateX(${dx}px)`;});
+    }
+    function onEnd(){
+      if(!dragging)return;dragging=false;
+      item.style.transition='transform 0.25s ease,opacity 0.25s';
+      if(dx<-THRESHOLD){
+        item.style.transform='translateX(-100%)';item.style.opacity='0';
+        setTimeout(()=>{
+          wrapper.style.transition='max-height 0.3s ease,margin 0.3s';
+          wrapper.style.maxHeight=wrapper.offsetHeight+'px';wrapper.style.overflow='hidden';
+          requestAnimationFrame(()=>{wrapper.style.maxHeight='0';wrapper.style.marginBottom='0';});
+          setTimeout(()=>{wrapper.remove();updateBadges();checkEmpty();},320);
+        },220);
+      } else {item.style.transform='translateX(0)';}
+    }
+    item.addEventListener('touchstart',e=>{const t=e.touches[0];onStart(t.clientX,t.clientY);},{passive:true});
+    item.addEventListener('touchmove',e=>{const t=e.touches[0];onMove(t.clientX,t.clientY);},{passive:true});
+    item.addEventListener('touchend',onEnd);
+    item.addEventListener('mousedown',e=>{onStart(e.clientX,e.clientY);e.preventDefault();});
+    document.addEventListener('mousemove',e=>{if(dragging)onMove(e.clientX,e.clientY);});
+    document.addEventListener('mouseup',()=>{if(dragging)onEnd();});
+  });
+}
+bindSwipe();
+
+function showEmptyState(){
+  const list=document.getElementById('notif-list');
+  list.innerHTML=`<div class="empty-state">
+    <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+    <div class="empty-state-text">No notifications</div>
+    <button class="restart-btn" id="restart-btn">
+      <svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+      Restart the demo
+    </button>
+  </div>`;
+  document.getElementById('restart-btn').addEventListener('click', restoreDemo);
+  updateBadges();
+}
+
+function checkEmpty(){
+  const list=document.getElementById('notif-list');
+  if(list&&!list.querySelector('.notif-wrapper')) showEmptyState();
+}
+
+function restoreDemo(){
+  const list=document.getElementById('notif-list');
+  list.innerHTML=ORIGINAL_HTML;
+  bindNotifClicks();
+  bindSwipe();
+  updateBadges();
+}
+
+document.getElementById('mark-all-btn').addEventListener('click',()=>{
+  document.querySelectorAll('#notif-list .notif-item.unread').forEach(item=>{
+    item.classList.remove('unread');item.classList.add('seen-anim');
+    const dot=item.querySelector('.unread-dot');
+    if(dot){dot.style.transition='opacity 0.4s';dot.style.opacity='0';setTimeout(()=>dot.remove(),400);}
+  });
+  updateBadges();
+});
+
+document.getElementById('clear-btn').addEventListener('click',()=>{
+  const wrappers=document.querySelectorAll('#notif-list .notif-wrapper');
+  let i=0;
+  wrappers.forEach(w=>{
+    setTimeout(()=>{
+      const item=w.querySelector('.notif-item');
+      if(item){item.style.transition='transform 0.3s ease,opacity 0.3s';item.style.transform='translateX(100%)';item.style.opacity='0';}
+      setTimeout(()=>{
+        w.style.transition='max-height 0.3s ease,margin 0.3s';
+        w.style.maxHeight=w.offsetHeight+'px';w.style.overflow='hidden';
+        requestAnimationFrame(()=>{w.style.maxHeight='0';w.style.marginBottom='0';});
+        setTimeout(()=>w.remove(),320);
+      },260);
+    },i*55);i++;
+  });
+  setTimeout(()=>showEmptyState(), wrappers.length*55+380);
+});
+
+document.getElementById('prefs-btn').addEventListener('click',()=>alert('Notification preferences would open here.'));
+document.getElementById('scroll-top-btn').addEventListener('click',()=>document.getElementById('notif-list').scrollTo({top:0,behavior:'smooth'}));
+</script>

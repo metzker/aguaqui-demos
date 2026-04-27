@@ -1,0 +1,260 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+.phone{width:100%;max-width:360px;margin:0 auto;background:#f5f8fc;border-radius:20px;overflow:hidden;border:1px solid #dde8f0;min-height:600px;display:flex;flex-direction:column}
+.screen{display:none;flex-direction:column;flex:1}
+.screen.active{display:flex}
+.topbar{background:#fff;padding:12px 16px;border-bottom:1px solid #eef2f6;display:flex;align-items:center;gap:10px}
+.back-btn{width:30px;height:30px;background:#f0f5f9;border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.back-btn svg{width:14px;height:14px;stroke:#333;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.topbar-logo{display:flex;align-items:center;gap:6px}
+.logo-text{font-size:16px;font-weight:800}.blu{color:#1AAEDC}.org{color:#F04E23}
+.scrollbody{flex:1;overflow-y:auto;padding:12px 14px 0}
+.cart-item{background:#fff;border-radius:12px;border:1px solid #eef2f6;padding:11px 13px;display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.item-icon{width:44px;height:44px;border-radius:10px;background:#d0eef8;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.item-icon svg{width:22px;height:22px;fill:none;stroke:#0f90ba;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.item-info{flex:1}
+.item-name{font-size:13px;font-weight:700;color:#1a1a2e}
+.item-sub{font-size:11px;color:#888;margin-top:2px}
+.item-price{font-size:14px;font-weight:800;color:#1AAEDC}
+.qty-ctrl{display:flex;align-items:center;gap:8px;margin-top:6px}
+.qty-btn{width:24px;height:24px;border-radius:50%;border:1.5px solid #1AAEDC;background:#fff;color:#1AAEDC;font-size:14px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:'Nunito',sans-serif}
+.qty-num{font-size:13px;font-weight:700;color:#1a1a2e;min-width:16px;text-align:center}
+.divider{height:1px;background:#eef2f6;margin:6px 0 10px}
+.summary-row{display:flex;justify-content:space-between;font-size:12px;color:#888;margin-bottom:5px}
+.summary-row.total{font-size:15px;font-weight:800;color:#1a1a2e;margin-top:6px}
+.summary-row.total span:last-child{color:#1AAEDC}
+.bottom-action{padding:14px;background:#fff;border-top:1px solid #eef2f6}
+.primary-btn{width:100%;background:#1AAEDC;color:#fff;border:none;border-radius:12px;padding:13px;font-size:14px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;display:flex;align-items:center;justify-content:center;gap:6px}
+.primary-btn:active{background:#0f90ba}
+.primary-btn svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.skip-btn{width:100%;background:none;border:none;color:#aaa;font-size:12px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;padding:8px;margin-top:4px}
+.upsell-header{padding:12px 14px 10px}
+.upsell-eyebrow{font-size:11px;font-weight:800;color:#F04E23;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:3px}
+.upsell-title{font-size:17px;font-weight:800;color:#1a1a2e}
+.upsell-sub{font-size:12px;color:#888;margin-top:2px}
+.upsell-grid{padding:0 14px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.upsell-card{background:#fff;border-radius:14px;border:1.5px solid #eef2f6;padding:12px 11px;display:flex;flex-direction:column;cursor:pointer;transition:border-color 0.15s;position:relative}
+.upsell-card:hover{border-color:#b8e4f2}
+.upsell-card.added{border-color:#1AAEDC;background:#eaf7fc}
+.upsell-img{width:100%;height:72px;border-radius:10px;margin-bottom:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.upsell-img svg{width:36px;height:36px;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.upsell-name{font-size:12px;font-weight:800;color:#1a1a2e;line-height:1.3;margin-bottom:2px}
+.upsell-reason{font-size:10px;color:#aaa;font-weight:600;margin-bottom:8px;line-height:1.3}
+.upsell-bottom{display:flex;align-items:center;justify-content:space-between;width:100%;margin-top:auto}
+.upsell-price{font-size:14px;font-weight:800;color:#1a1a2e}
+.add-btn{width:28px;height:28px;border-radius:50%;border:1.5px solid #1AAEDC;background:#fff;color:#1AAEDC;font-size:18px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.15s,color 0.15s;font-family:'Nunito',sans-serif;flex-shrink:0;line-height:1}
+.add-btn.done{background:#1AAEDC;color:#fff}
+.added-badge{position:absolute;top:8px;right:8px;background:#1AAEDC;color:#fff;font-size:9px;font-weight:800;border-radius:8px;padding:2px 6px;display:none}
+.upsell-card.added .added-badge{display:block}
+.added-count{font-size:11px;font-weight:700;color:#1AAEDC;text-align:center;padding:10px 0 2px;min-height:24px}
+.success-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;padding:32px 24px;text-align:center}
+.success-icon{width:64px;height:64px;border-radius:50%;background:#d0f2ea;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.success-icon svg{width:30px;height:30px;stroke:#0a8a6a;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.success-title{font-size:18px;font-weight:800;color:#1a1a2e;margin-bottom:8px}
+.success-sub{font-size:13px;color:#888;line-height:1.5;margin-bottom:24px}
+.success-total{font-size:24px;font-weight:800;color:#1AAEDC;margin-bottom:4px}
+.success-label{font-size:11px;color:#aaa;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:28px}
+.restart-btn{background:#1AAEDC;color:#fff;border:none;border-radius:12px;padding:12px 24px;font-size:13px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;display:flex;align-items:center;gap:6px}
+.restart-btn svg{width:14px;height:14px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+</style>
+
+<div style="padding:16px 0;background:var(--color-background-tertiary)">
+<div class="phone">
+
+  <!-- CART -->
+  <div class="screen active" id="screen-cart">
+    <div class="topbar">
+      <div class="topbar-logo">
+        <svg width="22" height="22" viewBox="0 0 28 28" fill="none"><path d="M14 2C9.58 2 6 5.58 6 10c0 6.5 8 16 8 16s8-9.5 8-16c0-4.42-3.58-8-8-8z" fill="#1AAEDC"/><circle cx="14" cy="10" r="3" fill="#fff"/></svg>
+        <span class="logo-text"><span class="blu">ÁGU</span><span class="org">A</span><span class="blu">QUI</span></span>
+      </div>
+    </div>
+    <div class="scrollbody">
+      <div style="font-size:15px;font-weight:800;color:#1a1a2e;margin-bottom:12px">Your cart</div>
+      <div class="cart-item">
+        <div class="item-icon"><svg viewBox="0 0 24 24"><rect x="8" y="4" width="8" height="16" rx="4"/><rect x="10" y="2" width="4" height="4" rx="2"/></svg></div>
+        <div class="item-info">
+          <div class="item-name">AguAqui 18.9L Reusable</div>
+          <div class="item-sub">Still water · refillable jug</div>
+          <div class="qty-ctrl">
+            <button class="qty-btn" onclick="changeQty('q1',-1)">−</button>
+            <span class="qty-num" id="q1">2</span>
+            <button class="qty-btn" onclick="changeQty('q1',1)">+</button>
+          </div>
+        </div>
+        <div class="item-price" id="p1">€19.80</div>
+      </div>
+      <div class="cart-item">
+        <div class="item-icon" style="background:#fde3da"><svg viewBox="0 0 24 24" stroke="#F04E23"><rect x="7" y="3" width="10" height="18" rx="3"/><rect x="9" y="1" width="6" height="4" rx="2"/></svg></div>
+        <div class="item-info">
+          <div class="item-name">Pedras Salgadas 250ml</div>
+          <div class="item-sub">Sparkling · glass bottle</div>
+          <div class="qty-ctrl">
+            <button class="qty-btn" onclick="changeQty('q2',-1)">−</button>
+            <span class="qty-num" id="q2">1</span>
+            <button class="qty-btn" onclick="changeQty('q2',1)">+</button>
+          </div>
+        </div>
+        <div class="item-price" id="p2">€2.20</div>
+      </div>
+      <div class="divider"></div>
+      <div class="summary-row"><span>Subtotal</span><span id="subtotal">€22.00</span></div>
+      <div class="summary-row"><span>Delivery</span><span style="color:#0a8a6a;font-weight:700">Free</span></div>
+      <div class="summary-row total"><span>Total</span><span id="cart-total">€22.00</span></div>
+      <div style="height:14px"></div>
+    </div>
+    <div class="bottom-action">
+      <button class="primary-btn" onclick="showScreen('screen-upsell')">Continue <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+    </div>
+  </div>
+
+  <!-- UPSELL -->
+  <div class="screen" id="screen-upsell">
+    <div class="topbar">
+      <button class="back-btn" onclick="showScreen('screen-cart')"><svg viewBox="0 0 18 18"><polyline points="11 3 5 9 11 15"/></svg></button>
+      <div class="topbar-logo">
+        <svg width="22" height="22" viewBox="0 0 28 28" fill="none"><path d="M14 2C9.58 2 6 5.58 6 10c0 6.5 8 16 8 16s8-9.5 8-16c0-4.42-3.58-8-8-8z" fill="#1AAEDC"/><circle cx="14" cy="10" r="3" fill="#fff"/></svg>
+        <span class="logo-text"><span class="blu">ÁGU</span><span class="org">A</span><span class="blu">QUI</span></span>
+      </div>
+    </div>
+    <div class="upsell-header">
+      <div class="upsell-eyebrow">People often add</div>
+      <div class="upsell-title">Complete your order</div>
+      <div class="upsell-sub">Based on what's in your cart</div>
+    </div>
+    <div class="scrollbody" style="padding-top:2px">
+      <div class="upsell-grid">
+        <div class="upsell-card" id="uc1">
+          <span class="added-badge">Added</span>
+          <div class="upsell-img" style="background:#fde3da"><svg viewBox="0 0 24 24" stroke="#F04E23"><path d="M20 7H4a1 1 0 00-1 1v1a1 1 0 001 1h16a1 1 0 001-1V8a1 1 0 00-1-1z"/><path d="M5 9v9a2 2 0 002 2h10a2 2 0 002-2V9"/><path d="M9 9V7a3 3 0 016 0v2"/></svg></div>
+          <div class="upsell-name">Luso Fruit Water 500ml</div>
+          <div class="upsell-reason">62% of customers add this</div>
+          <div class="upsell-bottom">
+            <div class="upsell-price">€1.20</div>
+            <button class="add-btn" id="ab1" onclick="toggleAdd('uc1','ab1',1.20)">+</button>
+          </div>
+        </div>
+        <div class="upsell-card" id="uc2">
+          <span class="added-badge">Added</span>
+          <div class="upsell-img" style="background:#d0eef8"><svg viewBox="0 0 24 24" stroke="#0f90ba"><path d="M12 2C8 8 5 12 5 15a7 7 0 0014 0c0-3-3-7-7-13z"/><path d="M9 15l2 2 4-4"/></svg></div>
+          <div class="upsell-name">Ice bag 1kg</div>
+          <div class="upsell-reason">Great with large water orders</div>
+          <div class="upsell-bottom">
+            <div class="upsell-price">€2.00</div>
+            <button class="add-btn" id="ab2" onclick="toggleAdd('uc2','ab2',2.00)">+</button>
+          </div>
+        </div>
+        <div class="upsell-card" id="uc3">
+          <span class="added-badge">Added</span>
+          <div class="upsell-img" style="background:#d0eef8"><svg viewBox="0 0 24 24" stroke="#0f90ba"><rect x="8" y="4" width="8" height="16" rx="4"/><rect x="10" y="2" width="4" height="4" rx="2"/><ellipse cx="12" cy="14" rx="3" ry="5" fill="#d0eef8" opacity="0.5"/></svg></div>
+          <div class="upsell-name">AguAqui 5L Still</div>
+          <div class="upsell-reason">Perfect fridge top-up</div>
+          <div class="upsell-bottom">
+            <div class="upsell-price">€3.50</div>
+            <button class="add-btn" id="ab3" onclick="toggleAdd('uc3','ab3',3.50)">+</button>
+          </div>
+        </div>
+        <div class="upsell-card" id="uc4">
+          <span class="added-badge">Added</span>
+          <div class="upsell-img" style="background:#fdf2de"><svg viewBox="0 0 24 24" stroke="#b45309"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+          <div class="upsell-name">Evian 6-pack 500ml</div>
+          <div class="upsell-reason">Premium hydration on the go</div>
+          <div class="upsell-bottom">
+            <div class="upsell-price">€5.90</div>
+            <button class="add-btn" id="ab4" onclick="toggleAdd('uc4','ab4',5.90)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="added-count" id="upsell-added-msg"></div>
+      <div style="height:10px"></div>
+    </div>
+    <div class="bottom-action">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding:0 2px">
+        <span style="font-size:12px;color:#888;font-weight:600">Order total</span>
+        <span style="font-size:16px;font-weight:800;color:#1AAEDC" id="upsell-total">€22.00</span>
+      </div>
+      <button class="primary-btn" onclick="showScreen('screen-success')">Go to payment <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+      <button class="skip-btn" onclick="showScreen('screen-success')">Skip — no thanks</button>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="screen" id="screen-success">
+    <div class="success-wrap">
+      <div class="success-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="success-title">Order placed!</div>
+      <div class="success-sub">Your water is on its way to Rua Fernando Pires de Lima 12. Delivery tomorrow between 12:00–12:30.</div>
+      <div class="success-total" id="final-total">€22.00</div>
+      <div class="success-label">Total charged</div>
+      <button class="restart-btn" onclick="restartDemo()">
+        <svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+        Restart demo
+      </button>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<script>
+const prices={q1:9.90,q2:2.20};
+let upsellExtra=0;
+const added={};
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if(id==='screen-success')document.getElementById('final-total').textContent='€'+(getCartTotal()+upsellExtra).toFixed(2);
+}
+function getCartTotal(){
+  return parseInt(document.getElementById('q1').textContent)*prices.q1+parseInt(document.getElementById('q2').textContent)*prices.q2;
+}
+function updateCartDisplay(){
+  const q1=parseInt(document.getElementById('q1').textContent);
+  const q2=parseInt(document.getElementById('q2').textContent);
+  document.getElementById('p1').textContent='€'+(q1*prices.q1).toFixed(2);
+  document.getElementById('p2').textContent='€'+(q2*prices.q2).toFixed(2);
+  const sub=getCartTotal();
+  document.getElementById('subtotal').textContent='€'+sub.toFixed(2);
+  document.getElementById('cart-total').textContent='€'+sub.toFixed(2);
+  document.getElementById('upsell-total').textContent='€'+(sub+upsellExtra).toFixed(2);
+}
+function changeQty(id,delta){
+  const el=document.getElementById(id);
+  el.textContent=Math.max(1,parseInt(el.textContent)+delta);
+  updateCartDisplay();
+}
+function toggleAdd(cardId,btnId,price){
+  const card=document.getElementById(cardId);
+  const btn=document.getElementById(btnId);
+  if(added[cardId]){
+    added[cardId]=false;
+    upsellExtra=parseFloat((upsellExtra-price).toFixed(2));
+    card.classList.remove('added');
+    btn.classList.remove('done');
+    btn.textContent='+';
+  } else {
+    added[cardId]=true;
+    upsellExtra=parseFloat((upsellExtra+price).toFixed(2));
+    card.classList.add('added');
+    btn.classList.add('done');
+    btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+  }
+  document.getElementById('upsell-total').textContent='€'+(getCartTotal()+upsellExtra).toFixed(2);
+  const count=Object.values(added).filter(Boolean).length;
+  document.getElementById('upsell-added-msg').textContent=count>0?count+' item'+(count>1?'s':'')+' added — €'+upsellExtra.toFixed(2)+' extra':'';
+}
+function restartDemo(){
+  document.getElementById('q1').textContent='2';
+  document.getElementById('q2').textContent='1';
+  upsellExtra=0;
+  Object.keys(added).forEach(k=>added[k]=false);
+  ['uc1','uc2','uc3','uc4'].forEach(id=>document.getElementById(id).classList.remove('added'));
+  ['ab1','ab2','ab3','ab4'].forEach(id=>{const b=document.getElementById(id);b.classList.remove('done');b.textContent='+';});
+  document.getElementById('upsell-added-msg').textContent='';
+  updateCartDisplay();
+  showScreen('screen-cart');
+}
+updateCartDisplay();
+</script>
